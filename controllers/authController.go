@@ -8,7 +8,6 @@ import (
 	"github.com/matiolsz/go-and-react/database"
 	"github.com/matiolsz/go-and-react/models"
 	"github.com/matiolsz/go-and-react/util"
-	"golang.org/x/crypto/bcrypt"
 )
 
 func Register(c *fiber.Ctx) error {
@@ -55,7 +54,7 @@ func Login(c *fiber.Ctx) error {
 		})
 	}
 
-	if err := bcrypt.CompareHashAndPassword(user.Password, []byte(data["password"])); err != nil {
+	if err := user.ComparePassword(data["password"]); err != nil {
 		c.Status(400)
 		return c.JSON(fiber.Map{
 			"message": "incorrect password",
