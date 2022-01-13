@@ -12,6 +12,9 @@ func Setup(app *fiber.App) {
 
 	app.Use(middleware.IsAuthenticated)
 
+	app.Get("/api/user/info", controllers.UpdateInfoAboutMyAccount)
+	app.Post("/api/logout/password", controllers.UpdatePasswordForMyAccount)
+
 	app.Get("/api/user", controllers.User)
 	app.Post("/api/logout", controllers.Logout)
 
